@@ -6,8 +6,7 @@ on:
 
 jobs:
   build:
-    environment: aws
-    # if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
     permissions:
@@ -24,9 +23,9 @@ jobs:
 
       - name: echo test
         run: |
-          echo ${{ secrets.EC2_PUBLIC_IP }}
-          echo ${{ secrets.DB_USERNAME }}
-          
+          echo "EC2_PUBLIC_IP: ${{ secrets.EC2_PUBLIC_IP }}"
+          echo "DB_USERNAME: ${{ secrets.DB_USERNAME }}"
+
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
